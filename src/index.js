@@ -7,7 +7,7 @@ import { createStore } from 'redux';
 import movies from './reducers' ;
 
 const store = createStore(movies);
-console.log('store' , store) ;
+console.log('store' , store.getState()) ;
 
 // store.dispatch({
 //   type: 'ADD_MOVIES',
