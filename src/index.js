@@ -3,10 +3,41 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './components/App';
 import reportWebVitals from './reportWebVitals';
-import { createStore } from 'redux';
+import { createStore, applyMiddleware } from 'redux';
 import rootReducer from './reducers' ;
+import { act } from '@testing-library/react';
+import thunk from 'redux-thunk' ;
 
-const store = createStore(rootReducer);
+// curried form of function logger(obj,next,action)
+
+// const logger = function({dispatch,getState}){
+//   return function(next) {
+//     return function(action){
+//       // middleware code
+//       console.log('ACTION_TYPE: ', action.type) ;
+//       next(action) ; // imp else code will get stuck
+//     }
+//   }
+// }
+
+const logger = ({dispatch,getState}) => (next) => (action) => {
+  // logger code
+  if(typeof action !== 'function'){
+    console.log('ACTION_TYPE: ', action.type) ;
+  }
+  next(action) ;
+}
+
+// const thunk = ({dispatch,getState}) => (next) => (action) => {
+//   // logger code
+//   if(typeof action === 'function'){
+//     action(dispatch) ;
+//     return ;
+//   }
+//   next(action) ;
+// }
+
+const store = createStore(rootReducer,applyMiddleware(logger , thunk));
 console.log('store' , store.getState()) ;
 
 // store.dispatch({
