@@ -1,4 +1,4 @@
-import { movies } from "../reducers";
+// import { movies } from "../reducers";
 
 // action types
 export const ADD_MOVIES = "ADD_MOVIES" ;
@@ -12,7 +12,7 @@ export const ADD_SEARCH_RESULT = "ADD_SEARCH_RESULT" ;
 export function addMovies (movies) {
     return {
         type: ADD_MOVIES ,
-        movies
+        movies 
     }
 }
 

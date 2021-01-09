@@ -3,6 +3,7 @@ import {ADD_MOVIES ,
     ADD_FAVOURITE , 
     REMOVE_FAVOURITE , 
     SET_SHOW_FAVOURITES,
+    ADD_MOVIE_TO_LIST ,
     ADD_SEARCH_RESULT
 }from '../actions/index' ;
 
@@ -54,13 +55,20 @@ export function movies (state = initialMovieState , action) {
                 showFavourites: action.value
             }
 
+        case ADD_MOVIE_TO_LIST:
+            return {
+                ...state ,
+                list: [action.movie , ...state.list]
+            };
+
         default:
             return state;
     }
 }
 
 const initialSearchState = {
-    result: {}
+    result: {} ,
+    showSearchResults : false
 };
 
 export function search (state= initialSearchState , action){
@@ -68,8 +76,15 @@ export function search (state= initialSearchState , action){
         case ADD_SEARCH_RESULT :
             return {
                 ...state ,
-                result : action.movie
+                result : action.movie ,
+                showSearchResults: true
             }
+
+        case ADD_MOVIE_TO_LIST:
+            return {
+                ...state ,
+                showSearchResults:false 
+            };
         
         default :
             return state

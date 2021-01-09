@@ -8,7 +8,6 @@ class Navbar extends React.Component {
   constructor(props){
     super(props) ;
     this.state = {
-      showSearchResults: true ,
       searchText: ''
     };
   }
@@ -16,7 +15,7 @@ class Navbar extends React.Component {
   handleAddToMovies = (movie) => {
     this.props.dispatch(addMoviesToList(movie)) ;
     this.setState({
-      showSearchResults: false
+      showSearchResults : false
     }) ;
   }
 
@@ -33,8 +32,7 @@ class Navbar extends React.Component {
   }
 
     render() {
-      const { showSearchResults } = this.state ;
-      const { result } = this.props.search ;
+      const { result: movie , showSearchResults} = this.props.search ;
       return (
           <div className="nav">
             <div className="search-container" >
@@ -44,11 +42,11 @@ class Navbar extends React.Component {
                 {showSearchResults &&
                   <div className="search-results" >
                     <div className="search-result">
-                      <img src={result.Poster} alt="search-pic" />
+                      <img src={movie.Poster} alt="search-pic" />
 
                       <div className="movie-info">
-                      <span> {result.Title} </span>
-                      <button onClick={() => this.handleAddToMovies(result)} >
+                      <span> {movie.Title} </span>
+                      <button onClick={() => this.handleAddToMovies(movie)} >
                         Add To Movies
                       </button>
                       </div>
